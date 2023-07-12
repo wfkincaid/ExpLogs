@@ -1,0 +1,41 @@
+[acq_params]
+adc_offset = 39
+amplitude = 1.0
+p90_us = 4.15
+deadtime_us = 10.0
+tau_us = 3500.0
+deblank_us = 1.0
+sw_khz = 3.9
+acq_time_ms = 1024.0
+nscans = 1
+thermal_nscans = 2
+carrierfreq_mhz = 14.8784683746
+nechoes = 1
+startconstant = 0.15
+stopconstant = 2.0
+gamma_eff_mhz_g = 0.004259997722689017
+field_width = 8.0
+
+[sample_params]
+concentration = 0.00015
+krho_cold = 400.0
+krho_hot = 300.0
+t1water_hot = 2.98
+t1water_cold = 2.17
+repetition_us = 4000000.0
+guessed_mhz_to_ghz = 1.515
+
+[odnp_params]
+max_power = 3.16
+power_steps = 14
+num_t1s = 8
+uw_dip_center_ghz = 9.820714727272726
+uw_dip_width_ghz = 0.02
+fir_rep = 5255268.494841725
+
+[file_names]
+date = 230523
+chemical = batch230515_N187_pR
+type = ODNP
+
+

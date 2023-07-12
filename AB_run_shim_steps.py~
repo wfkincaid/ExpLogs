@@ -144,10 +144,10 @@ voltage_array = r_[0.0:0.15:0.01]
 current_readings = ones_like(voltage_array)
 voltage_readings = ones_like(voltage_array)
 # channel that is currently being investigated
-test_ch = 2
+test_ch = 3
 # channel that was previously investigated/has predetermined value that you want to set 
 # set_ch : (ch #, voltage setting)
-set_ch = [(3,0.0)]
+set_ch = [(2,0.1)]
 
 with prologix_connection() as p:
     with HP6623A(prologix_instance=p, address=5) as HP:

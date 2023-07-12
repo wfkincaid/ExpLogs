@@ -43,12 +43,12 @@ def verifyParams():
     return
 #}}}
 
-output_name = 'NiSO4'
+output_name = '230317_pR_A174_batch230130_att10'
 node_name = 'shim_off'
-adcOffset = 32
+adcOffset = 40 
 
 user_sets_Freq = True
-user_sets_Field = True
+user_sets_Field = True 
 
 #{{{ set field here
 if user_sets_Field:
@@ -65,7 +65,7 @@ if not user_sets_Field:
 #}}}
 #{{{ set frequency here
 if user_sets_Freq:
-    carrierFreq_MHz = 14.829902
+    carrierFreq_MHz = 14.907146
     print("My frequency in MHz is",carrierFreq_MHz)
 #}}}
 #{{{ let computer set frequency
@@ -89,7 +89,7 @@ if not phase_cycling:
 # all times in microseconds
 # acq is in milliseconds
 #}}}
-p90 = 4.51
+p90 = 4.6
 deadtime = 10
 repetition = 0.5e6
 
