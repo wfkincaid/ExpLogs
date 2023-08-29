@@ -40,13 +40,13 @@ SerialInstrument(None)
 print("done printing available instruments")
 def grab_waveforms(g):
     # {{{ capture a "successful" waveform
-    ch1 = g.waveform(ch=1)
-    ch2 = g.waveform(ch=2)
+    ch1 = g.waveform(ch=2)
+    ch2 = g.waveform(ch=3)
     success = False
     for j in range(10):
         if ch1.data.max() < 50e-3:
-            ch1 = g.waveform(ch=1)
-            ch2 = g.waveform(ch=2)
+            ch1 = g.waveform(ch=2)
+            ch2 = g.waveform(ch=3)
         else:
             success = True
     if not success:
@@ -73,16 +73,16 @@ with GDS_scope() as g:
     g.reset()
     g.CH1.disp=True
     g.CH2.disp=True
-    g.write(':CHAN1:DISP ON')
+    g.write(':CHAN1:DISP OFF')
     g.write(':CHAN2:DISP ON')
-    g.write(':CHAN3:DISP OFF')
+    g.write(':CHAN3:DISP ON')
     g.write(':CHAN4:DISP OFF')
-    g.CH1.voltscal=100E-3
-    g.CH2.voltscal=50E-3
+    g.CH2.voltscal=100E-3
+    g.CH3.voltscal=50E-3
     g.timscal(500e-9, pos=2.325e-6)
-    g.write(':CHAN1:IMP 5.0E+1')
     g.write(':CHAN2:IMP 5.0E+1')
-    g.write(':TRIG:SOUR CH1') 
+    g.write(':CHAN3:IMP 5.0E+1')
+    g.write(':TRIG:SOUR CH2') 
     g.write(':TRIG:MOD NORMAL')
     g.write(':TRIG:HLEV 7.5E-2')
     tune_thread.join()
