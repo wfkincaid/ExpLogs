@@ -10,9 +10,9 @@ from SpinCore_pp.ppg import run_spin_echo
 import logging
 fl = figlist_var()
 #{{{Parameters that change for new samples
-output_name = 'Q183_pRbatch230814_nutation_6'
-adcOffset = 47
-carrierFreq_MHz = 14.8929658605
+output_name = 'F195_pRbatch230814_nutation_3'
+adcOffset = 46
+carrierFreq_MHz = 14.8766842762
 nScans = 4
 nEchoes = 1
 repetition = 12.0e6

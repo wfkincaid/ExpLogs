@@ -1,7 +1,7 @@
 [acq_params]
-adc_offset = 47
+adc_offset = 46
 amplitude = 1.0
-p90_us = 6.6
+p90_us = 5.5
 deadtime_us = 10.0
 tau_us = 3500.0
 deblank_us = 1.0
@@ -9,15 +9,15 @@ sw_khz = 3.9
 acq_time_ms = 1024.0
 nscans = 1
 thermal_nscans = 2
-carrierfreq_mhz = 14.876675542
+carrierfreq_mhz = 14.8755757576
 nechoes = 1
 startconstant = 0.15
 stopconstant = 2.0
-gamma_eff_mhz_g = 0.004257136585745695
+gamma_eff_mhz_g = 0.004258852807307688
 field_width = 8.0
 
 [sample_params]
-concentration = 0.0002141
+concentration = 0.001
 krho_cold = 900.0
 krho_hot = 1200.0
 t1water_hot = 2.98
@@ -30,13 +30,13 @@ guessed_phalf = 0.2
 max_power = 2.51
 power_steps = 14
 num_t1s = 8
-uw_dip_center_ghz = 9.819777315295816
+uw_dip_center_ghz = 9.81906555133739
 uw_dip_width_ghz = 0.02
-fir_rep = 5340932.129585208
+fir_rep = 5062131.721423756
 
 [file_names]
-date = 230825
-chemical = Q183_pRbatch230814
+date = 230905
+chemical = F195_pRbatch230814
 type = field
 echo_counter = 1
 field_counter = 1

@@ -1,0 +1,29 @@
+[General]
+data_directory = C:\exp_data\ODNP_NMR_comp
+
+[ExpTypes]
+noise_tests = C:\exp_data\ODNP_NMR_comp\noise_tests
+echoes = C:\exp_data\ODNP_NMR_comp\Echoes
+nutation = C:\exp_data\ODNP_NMR_comp\nutation
+inv_rec = C:\exp_data\ODNP_NMR_comp\inv_rec
+cpmg = C:\exp_data\ODNP_NMR_comp\CPMG
+odnp = C:\exp_data\ODNP_NMR_comp\ODNP
+field_dependent = C:\exp_data\ODNP_NMR_comp\field_dependent
+var_tau = C:\exp_data\ODNP_NMR_comp\var_tau
+t1cpmg = C:\exp_data\ODNP_NMR_comp\T1CPMG
+odnp_nmr_comp\echoes = C:\exp_data\ODNP_NMR_comp\Echoes
+odnp_nmr_comp\cpmg = C:\exp_data\ODNP_NMR_comp\CPMG
+odnp_nmr_comp\nutation = C:\exp_data\ODNP_NMR_comp\nutation
+odnp_nmr_comp\fid = C:\exp_data\ODNP_NMR_comp\FID
+odnp_nmr_comp\inv_rec = C:\exp_data\ODNP_NMR_comp\inv_rec
+odnp_nmr_comp\odnp = C:\exp_data\ODNP_NMR_comp\ODNP
+odnp_nmr_comp\field_dependent = C:\exp_data\ODNP_NMR_comp\field_dependent
+odnp_nmr_comp\cosy = C:\exp_data\ODNP_NMR_comp\COSY
+odnp_nmr_comp\var_tau = C:\exp_data\ODNP_NMR_comp\var_tau
+WK_exp = C:\user_exp\WK_exp
+
+
+[mode]
+figures = standard
+
+
