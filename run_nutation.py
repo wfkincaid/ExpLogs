@@ -11,16 +11,16 @@ import logging
 fl = figlist_var()
 #{{{Parameters that change for new samples
 output_name = 'F195_pRbatch230814_nutation_3'
-adcOffset = 46
-carrierFreq_MHz = 14.8766842762
+adcOffset = 43
+carrierFreq_MHz = 14.8755757576
 nScans = 4
 nEchoes = 1
 repetition = 12.0e6
-p90_range = linspace(6,14,3,endpoint=False)
+p90_range = linspace(3,14,3,endpoint=False)
 ph1_cyc = r_[0,2]
 ph2_cyc = r_[0,2]
 SW_kHz = 3.9 #24.0 originally
-acq_time = 1024.
+acq_time = 1024
 tau = 3500
 #}}}
 #{{{These should stay the same regardless of sample
