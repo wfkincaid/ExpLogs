@@ -1,63 +1,72 @@
 Filename,Path,exp_type
-230320_batch230130_A174_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP,XXX--unknown--XXX
-230905_F195_pRbatch230814_ODNP_2.h5,.,XXX--unknown--XXX
-230320_batch230130_A174_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230906_F195_pRbatch230814_ODNP_1.h5,.,XXX--unknown--XXX
-230616_batch230606_K42_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230706_E37_Rasbatch230627_lowp_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230523_batch230515_Q183_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230829_N187_pRbatch230814_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230911_Q183_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
-230626_batch230515_E37_Ras_B10_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230531_batch230515_F205_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230627_batch230515_E37_Ras_B_calc_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230706_M67_Rasbatch230627_B_lowp_ODNP_2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230530_batch230515_L118_ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230615_batch230605_Q183_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230317_NiSO4.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230829_Q183_pRbatch230814_ODNP_1.h5,C:\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230523_batch230515_N187_pR_ODNP_2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230614_batch230605_N187_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230615_batch230606_I36_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230531_batch230515_F205_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
-230621_batch230605_F205_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230317_batch230130_A174_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent,XXX--unknown--XXX
-230317_batch230130_A174_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent,ODNP_NMR_comp/field_dependent
-230615_batch230606_I36_Ras_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
-230911_Q183_B1_pRbatch230828_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
 230706_M67_Rasbatch230627_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230621_batch230605_F195_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230616_batch230606_M67_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230905_F195_pRbatch230814_ODNP_1.h5,.,XXX--unknown--XXX
-230530_batch230515_E37_ras_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230317_230317_pR_A174_batch230130_att2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230616_batch230606_S51_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230320_batch230130_A174_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230906_F195_pRbatch230814_ODNP_2.h5,.,XXX--unknown--XXX
 230706_M67_Rasbatch230627_B_highp_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230525_batch230515_M67_Ras_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
-230906_F205_pRbatch230814_ODNP_1.h5,.,XXX--unknown--XXX
-230829_N187_pRbatch230814_field.h5,.,XXX--unknown--XXX
-230317_batch230130_A174_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
-230317_230317_pR_A174_batch230130_att4.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230525_batch230515_M67_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230906_F195_pRbatch230814_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230628_TEMPOL_330uM_A_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230829_N187_pRbatch230814_ODNP_2.h5,C:\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230317_batch230130_A174_pR_att2_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
-230523_batch230515_Q183_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
-230531_batch230515_F205_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
-230628_TEMPOL_330uM_B_calc_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230829_N187_pRbatch230814_ODNP_1.h5,C:\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230525_batch230515_E37_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
 230905_F195_pRbatch230814_ODNP_3.h5,.,XXX--unknown--XXX
-230628_TEMPOL_330uM_B_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230711_I36_Rasbatch230627_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230707_E37_Rasbatch230627_highp_ODNP_2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230711_K104_Rasbatch230627_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230530_batch230515_E37_ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230523_batch230515_Q183_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
-230317_batch230130_A174_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230531_batch230515_F205_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
 230626_batch230515_E37_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230530_batch230515_E37_ras_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230706_E37_Rasbatch230627_lowp_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230906_F195_pRbatch230814_ODNP_2.h5,.,XXX--unknown--XXX
+230913_Q183_A2_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
+230906_F205_pRbatch230814_ODNP_1.h5,.,XXX--unknown--XXX
+230317_batch230130_A174_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent,ODNP_NMR_comp/field_dependent
+230628_TEMPOL_330uM_B_calc_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230829_Q183_pRbatch230814_ODNP_1.h5,C:\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230525_batch230515_M67_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230320_batch230130_A174_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230317_batch230130_A174_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
+230829_N187_pRbatch230814_ODNP_1.h5,C:\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230913_F195_B1_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
 230320_batch230130_A174_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP,ODNP_NMR_comp/ODNP
+230627_batch230515_E37_Ras_B_calc_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230912_F195_A1_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
+230621_batch230605_F205_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230706_M67_Rasbatch230627_B_lowp_ODNP_2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230615_batch230605_Q183_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230906_F195_pRbatch230814_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230320_batch230130_A174_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230906_F195_pRbatch230814_ODNP_1.h5,.,XXX--unknown--XXX
+230911_Q183_B1_pRbatch230828_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230913_Q183_A2_pRbatch230828_2_ODNP_1.h5,.,XXX--unknown--XXX
+230628_TEMPOL_330uM_A_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230615_batch230606_I36_Ras_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
+230317_batch230130_A174_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent,XXX--unknown--XXX
+230829_N187_pRbatch230814_ODNP_2.h5,C:\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230913_Q183_A1_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
+230707_E37_Rasbatch230627_highp_ODNP_2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230616_batch230606_K42_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230525_batch230515_E37_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230905_F195_pRbatch230814_ODNP_1.h5,.,XXX--unknown--XXX
+230616_batch230606_M67_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230626_batch230515_E37_Ras_B10_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230711_K104_Rasbatch230627_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230317_230317_pR_A174_batch230130_att4.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230317_batch230130_A174_pR_att2_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
+230913_F195_B2_pRbatch230828_2_ODNP_1.h5,.,XXX--unknown--XXX
+230614_batch230605_N187_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
 230829_Q183_pRbatch230814_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230905_F195_pRbatch230814_ODNP_2.h5,.,XXX--unknown--XXX
+230913_F195_B2_pRbatch230828_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230523_batch230515_Q183_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230531_batch230515_F205_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230531_batch230515_F205_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
+230530_batch230515_E37_ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230317_batch230130_A174_pR_echo.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230912_F195_A1_pRbatch230828_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230616_batch230606_S51_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230530_batch230515_L118_ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230317_NiSO4.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230317_230317_pR_A174_batch230130_att2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230615_batch230606_I36_Ras_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230523_batch230515_N187_pR_ODNP_2.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230523_batch230515_Q183_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230523_batch230515_Q183_pR_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
+230829_N187_pRbatch230814_field.h5,.,XXX--unknown--XXX
+230913_F195_A2_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
+230320_batch230130_A174_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP,XXX--unknown--XXX
+230525_batch230515_M67_Ras_field.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\field_dependent\,XXX--unknown--XXX
+230911_Q183_pRbatch230828_ODNP_1.h5,.,XXX--unknown--XXX
+230621_batch230605_F195_pR_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230711_I36_Rasbatch230627_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
+230829_N187_pRbatch230814_echo.h5,C:\exp_data\ODNP_NMR_comp\Echoes\,XXX--unknown--XXX
+230628_TEMPOL_330uM_B_ODNP_1.h5,C:\Users\wfkincai\Syracuse University\Group-FranckGroup - General\exp_data\ODNP_NMR_comp\ODNP\,XXX--unknown--XXX
