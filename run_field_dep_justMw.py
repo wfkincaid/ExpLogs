@@ -173,7 +173,7 @@ if os.path.exists(filename + ".h5"):
     sweep_data.hdf5_write(f"{filename_out}", directory=target_directory)
 else:
     try:
-        sweep_data.hdf5_write(f"{filename_out}")
+        sweep_data.hdf5_write(f"{filename_out}", directory=target_directory)
     except:
         print(
             f"I had problems writing to the correct file {filename}.h5, so I'm going to try to save your file to temp.h5 in the current directory"
