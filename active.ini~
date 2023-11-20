@@ -17,7 +17,7 @@ gamma_eff_mhz_g = 0.004268060472216736
 field_width = 8.0
 
 [sample_params]
-concentration = 0.00095
+concentration = 0.000160
 krho_cold = 900.0
 krho_hot = 1200.0
 t1water_hot = 2.98
@@ -33,11 +33,13 @@ num_t1s = 8
 uw_dip_center_ghz = 9.819571171717172
 uw_dip_width_ghz = 0.008
 fir_rep = 1355407.9869007552
+min_dBm_step = 1.0
 
 [file_names]
-date = 231116
-chemical = S184_B1_pRbatch231106
+date = 231120
+chemical = T177_A1_pRbatch231106
 type = ODNP
-field_counter = 5
-odnp_counter = 3
+
+
+
 
