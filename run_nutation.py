@@ -10,13 +10,13 @@ from SpinCore_pp.ppg import run_spin_echo
 import logging
 fl = figlist_var()
 #{{{Parameters that change for new samples
-output_name = 'F195_pRbatch230814_nutation_3'
-adcOffset = 43
-carrierFreq_MHz = 14.8755757576
-nScans = 4
+output_name = 'TEMPOL_27mM_1'
+adcOffset = 39
+carrierFreq_MHz = 14.8948600357
+nScans = 1
 nEchoes = 1
-repetition = 12.0e6
-p90_range = linspace(3,14,3,endpoint=False)
+repetition = 10.0e6
+p90_range = linspace(5,12,5,endpoint=False)
 ph1_cyc = r_[0,1,2,3]
 SW_kHz = 3.9 #24.0 originally
 acq_time = 1024
@@ -82,9 +82,34 @@ nutation_data.chunk('t',
         ['ph1','t2'],[len(ph1_cyc),-1]).setaxis(
                 'ph1',ph1_cyc/4)
 nutation_data.reorder('t2',first=False)
-nutation_data.hdf5_write(myfilename)
-logging.info("Name of saved data",nutation_data.name())
-logging.info("Shape of saved data",ndshape(nutation_data))
+target_directory = getDATADIR(exp_type="ODNP_NMR_comp/nutation")
+if os.path.exists(myfilename):
+    print("this file already exists so we will add a node to it!")
+    with h5py.File(
+        os.path.normpath(os.path.join(target_directory, myfilename))
+    ) as fp:
+        if nodename in fp.keys():
+            print("this nodename already exists, so I will call it temp")
+            nutation_data.name("temp")
+            nodename = "temp"
+    nutation_data.hdf5_write(myfilename, directory=target_directory)
+else:
+    try:
+        nutation_data.hdf5_write(myfilename, directory=target_directory)
+    except:
+        print(
+            f"I had problems writing to the correct file {myfilename}, so I'm going to try to save your file to temp.h5 in the current directory"
+        )
+        if os.path.exists("temp.h5"):
+            print("there is a temp.h5 already! -- I'm removing it")
+            os.remove("temp.h5")
+            nutation_data.hdf5_write("temp.h5")
+            print(
+                "if I got this far, that probably worked -- be sure to move/rename temp.h5 to the correct name!!"
+            )
+print("\n*** FILE SAVED IN TARGET DIRECTORY ***\n")
+print(("Name of saved data", nutation_data.name()))
+print(("Shape of saved data", ndshape(nutation_data)))
 SpinCore_pp.stopBoard()
 nutation_data.reorder(['ph1','indirect'])
 fl.next('raw data')
