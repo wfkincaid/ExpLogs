@@ -1,7 +1,7 @@
 [acq_params]
-adc_offset = 42
+adc_offset = 39
 amplitude = 1.0
-p90_us = 5.9
+p90_us = 5.8
 deadtime_us = 10.0
 tau_us = 3500.0
 deblank_us = 1.0
@@ -9,36 +9,37 @@ sw_khz = 3.9
 acq_time_ms = 1024.0
 nscans = 1
 thermal_nscans = 2
-carrierfreq_mhz = 14.8794854879
+carrierfreq_mhz = 14.8765393053
 nechoes = 1
 startconstant = 0.15
 stopconstant = 2.0
-gamma_eff_mhz_g = 0.004252524307191946
+gamma_eff_mhz_g = 0.004251990919650638
 field_width = 10.0
 
 [sample_params]
-concentration = 0.000345
+concentration = 0.00011
 krho_cold = 900.0
 krho_hot = 1200.0
 t1water_hot = 2.98
 t1water_cold = 2.17
 repetition_us = 12000000.0
-guessed_mhz_to_ghz = 1.5155
+guessed_mhz_to_ghz = 1.515
 guessed_phalf = 0.5
 
 [odnp_params]
 max_power = 2.51
 power_steps = 14
 num_t1s = 8
-uw_dip_center_ghz = 9.820475
+uw_dip_center_ghz = 9.820245
 uw_dip_width_ghz = 0.008
-fir_rep = 2668194.7603101553
+fir_rep = 4277430.097031636
 min_dbm_step = 0.5
 
 [file_names]
-date = 240122
-chemical = N187_B1_pRbatch231220
+date = 240123
+chemical = F205_B1_pRbatch231220
 type = ODNP
-field_counter = 1
+echo_counter = 1
+field_counter = 2
 odnp_counter = 1
 
