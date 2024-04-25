@@ -11,13 +11,13 @@ from SpinCore_pp import prog_plen
 import logging
 fl = figlist_var()
 #{{{Parameters that change for new samples
-output_name = 'L56_MTSL_A1_Rasbatch240320_nutation'
-adcOffset = 39
-carrierFreq_MHz = 14.8937589115
-nScans = 1
+output_name = 'L56_MTSL_A1_Rasbatch240410_nutation_2'
+adcOffset = 55
+carrierFreq_MHz = 14.893836263199999
+nScans = 4
 nEchoes = 1
-repetition = 3548801.981612919
-p90_range = linspace(5,15,5,endpoint=False)
+repetition = 12000000.0
+p90_range = linspace(5,11,5,endpoint=False)
 SW_kHz = 3.9 #24.0 originally
 acq_time = 1024.
 tau_us = 3500
