@@ -1,15 +1,15 @@
 [acq_params]
-adc_offset = 76
-amplitude = 1.0
-p90_us = 3.9
+adc_offset = 42
+amplitude = 0.575
+p90_us = 4.0
 deadtime_us = 10.0
 tau_us = 3500.0
 deblank_us = 1.0
-sw_khz = 3.9
-acq_time_ms = 1024.0
+sw_khz = 200.0
+acq_time_ms = 10.0
 nscans = 1
 thermal_nscans = 2
-carrierfreq_mhz = 14.8921759506
+carrierfreq_mhz = 14.9
 nechoes = 1
 startconstant = 0.15
 stopconstant = 2.0
@@ -36,9 +36,8 @@ fir_rep = 5353742.229887535
 min_dbm_step = 0.5
 
 [file_names]
-date = 240530
-chemical = L118_6-MSL_B1_Rasbatch240501_newair
-type = ODNP
-field_counter = 2
-odnp_counter = 1
+date = 240611
+chemical = newlargeprobe_OldRas_6-MSL-L118-B
+type = echo
+echo_counter = 5
 
