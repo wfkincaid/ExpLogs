@@ -42,5 +42,5 @@ min_dbm_step = 0.5
 date = 240614
 chemical = LargeProbe_oldsample
 type = echo
-echo_counter = 6
+echo_counter = 5
 

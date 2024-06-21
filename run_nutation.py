@@ -76,7 +76,7 @@ for idx, p90_us in enumerate(p90_range_us):
 #     given as a structured array with p90
 #     and index fields, so I'm staying
 #     consistent
-mytimes = nutation_data.getaxis("indirect")
+mytimes = nutation_data.getaxis("indirect_fields")
 mytimes["p_90"][:] = p90_range_us
 mytimes["index"][:] = arange(len(p90_range_us))
 # }}}
