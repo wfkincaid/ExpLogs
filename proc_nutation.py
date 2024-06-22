@@ -14,7 +14,7 @@ for searchstr,exp_type,nodename,postproc,freq_slice in [
     #    'spincore_nutation_v1',(-5000,13000)],
     #['210302_210302_Ni_cap_probe_nutation_1','nutation','nutation',
     #    'spincore_nutation_v1',(-4e3,1.2e4)]
-    ['pR_batch230605_N187_nutation_1','ODNP_NMR_comp/nutation','nutation',
+    ['200uM_TEMPOL_oldprobe_nutation_2','ODNP_NMR_comp/nutation','nutation',
         'spincore_nutation_v3',(-500,500)]
     ]:
     s = find_file(searchstr,exp_type=exp_type,expno=nodename,postproc=postproc,
