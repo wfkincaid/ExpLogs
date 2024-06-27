@@ -4,149 +4,191 @@ CPMG
 
 This script will perform a standard CPMG experiment. 
 In order to form a symmetric echo, a padding time is added before 
-and after your tau through a series of delays. 
+and after your tau through a series of delays.
+If you wish to keep the field as is without adjustment, follow
+the 'py run_CPMG.py' command with 'stayput' (e.g. 'py run_CPMG.py stayput')
 """
 from pylab import *
 from pyspecdata import *
+import os, sys
 from numpy import *
 import SpinCore_pp
-from SpinCore_pp.ppg import run_cpmg
-import os
+from SpinCore_pp import prog_plen, get_integer_sampling_intervals
+from SpinCore_pp.ppg import generic
 from datetime import datetime
+from Instruments.XEPR_eth import xepr
 import h5py
-raise RuntimeError("This pulse proram has not been updated.  Before running again, it should be possible to replace a lot of the code below with a call to the function provided by the 'generic' pulse program inside the ppg directory!")
 
-fl = figlist_var()
+my_exp_type = "ODNP_NMR_comp/CPMG"
+target_directory = getDATADIR(exp_type=my_exp_type)
+assert os.path.exists(target_directory)
 # {{{importing acquisition parameters
 config_dict = SpinCore_pp.configuration("active.ini")
-nPoints = int(config_dict["acq_time_ms"] * config_dict["SW_kHz"] + 0.5)
+(
+    nPoints,
+    config_dict["SW_kHz"],
+    config_dict["echo_acq_ms"],
+) = get_integer_sampling_intervals(
+    SW_kHz=config_dict["SW_kHz"],
+    time_per_segment_ms=config_dict["echo_acq_ms"],
+)
 # }}}
 # {{{create filename and save to config file
 date = datetime.now().strftime("%y%m%d")
 config_dict["type"] = "CPMG"
 config_dict["date"] = date
 config_dict["cpmg_counter"] += 1
-filename = f"{config_dict['date']}_{config_dict['chemical']}_{config_dict['type']}"
+filename = f"{config_dict['date']}_{config_dict['chemical']}_generic_{config_dict['type']}"
+# }}}
+# {{{ command-line option to leave the field untouched (if you set it once, why set it again)
+adjust_field = True
+if len(sys.argv) == 2 and sys.argv[1] == "stayput":
+    adjust_field = False
+# }}}
+input(
+    "I'm assuming that you've tuned your probe to",
+    config_dict["carrierFreq_MHz"],
+    "since that's what's in your .ini file. Hit enter if this is true",
+)
+# {{{ let computer set field
+if adjust_field:
+    field_G = config_dict["carrierFreq_MHz"] / config_dict["gamma_eff_MHz_G"]
+    print(
+        "Based on that, and the gamma_eff_MHz_G you have in your .ini file, I'm setting the field to %f"
+        % field_G
+    )
+    with xepr() as x:
+        assert field_G < 3700, "are you crazy??? field is too high!"
+        assert field_G > 3300, "are you crazy?? field is too low!"
+        field_G = x.set_field(field_G)
+        print("field set to ", field_G)
 # }}}
 # {{{set phase cycling
-phase_cycling = True
-if phase_cycling:
-    ph1_cyc = r_[0, 1, 2, 3]
-    nPhaseSteps = 4
-if not phase_cycling:
-    ph1_cyc = 0.0
-    nPhaseSteps = 1
+# NOTE: The overall phase and the 90-180 phase difference are phase cycled
+# in a nested way
+ph2 = r_[0, 1, 2, 3]
+ph_diff = r_[0, 2]
+# the following puts ph_diff on the inside, which I would not have expected
+ph1_cyc = array([(j + k) % 4 for k in ph2 for j in ph_diff])
+ph2_cyc = array([(k + 1) % 4 for k in ph2 for j in ph_diff])
+nPhaseSteps = len(ph2) * len(ph_diff)
 # }}}
-# {{{better tau
-marker = 1.0  # 10/10/22 → what is this? → pretty sure the time needed to execute the marker command
-pad_start = config_dict["tau_extra_us"] - config_dict["deadtime_us"]
-pad_end = (
-    config_dict["tau_extra_us"] - config_dict["deblank_us"] - marker
-)  # marker + deblank
-assert(pad_start > 0), "tau_extra_us must be set to more than deadtime and more than deblank!"
-assert (pad_end > 0), "tau_extra_us must be set to more than deadtime and more than deblank!"
-twice_tau_echo_us = (  # the period between 180 pulses
-    config_dict["tau_extra_us"] * 2 + config_dict["acq_time_ms"] * 1e3
+# {{{ calibrate pulse lengths
+# NOTE: This is done inside the run_spin_echo rather than in the example
+# but to keep the generic function more robust we do it outside of the ppg
+prog_p90_us = prog_plen(config_dict["p90_us"])
+prog_p180_us = prog_plen(2 * config_dict["p90_us"])
+# }}}
+# {{{ calculate symmetric tau
+# NOTE: here the tau_us is defined as the evolution time from the start of
+# excitation (*during the pulse*) through to the start of the 180 pulse
+marker_us = 1.0  # the marker takes 1 us
+config_dict["tau_us"] = (
+    2 * config_dict["deadtime_us"] + 1e3 * config_dict["echo_acq_ms"]
+) / 2
+assert (
+    config_dict["tau_us"]
+    > 2 * prog_p90_us / pi + marker_us + config_dict["deblank_us"]
 )
-# now twice_tau_echo_us/2.0 is τ_echo, so I need to subtract the extra delays
-# imposed by the ppg to determine the remaining τ that I need
-config_dict["tau_us"] = twice_tau_echo_us / 2.0 - (
-    2
-    * config_dict["p90_us"]
-    / pi  # evolution during pulse -- see eq 6 of coherence paper
-    + config_dict["deadtime_us"]  # following 90
-    + config_dict["deblank_us"]  # before 180
+assert config_dict["deadtime_us"] > config_dict["deblank_us"] + 2 * marker_us
+print(
+    "If you are measuring on a scope, the time from the start (or end) of one 180 pulse to the next should be %0.1f us"
+    % (
+        2 * config_dict["deadtime_us"]
+        + 1e3 * config_dict["echo_acq_ms"]
+        + prog_p180_us
+    )
 )
 # }}}
 # {{{check total points
-total_pts = nPoints * nPhaseSteps
-assert total_pts < 2 ** 14, (
-    "You are trying to acquire %d points (too many points) -- either change SW or acq time so nPoints x nPhaseSteps is less than 16384\nyou could try reducing the acq_time_ms to %f"
-    % (total_pts, config_dict["acq_time_ms"] * 16384 / total_pts)
+total_pts = nPoints * nPhaseSteps * config_dict["nEchoes"]
+assert total_pts < 2**14, (
+    "You are trying to acquire %d points (too many points) -- either change SW or acq time so nPoints x nPhaseSteps is less than 16384"
+    % total_pts
 )
 # }}}
-# {{{run cpmg
+# {{{ acquire CPMG
 # NOTE: Number of segments is nEchoes * nPhaseSteps
-data = run_cpmg(
-    nScans = config_dict["nScans"],
-    indirect_idx = 0,
-    indirect_len = 1,
-    ph1_cyc = ph1_cyc,
-    adcOffset = config_dict["adc_offset"],
-    carrierFreq_MHz = config_dict["carrierFreq_MHz"],
-    nPoints = nPoints,
-    nEchoes = config_dict["nEchoes"],
-    p90_us = config_dict["p90_us"],
-    repetition_us = config_dict["repetition_us"],
-    tau_us = config_dict["tau_us"],
-    SW_kHz = config_dict["SW_kHz"],
-    pad_start_us = pad_start,
-    pad_end_us = pad_end,
-    ret_data = None,
+data = generic(
+    ppg_list=[
+        ("phase_reset", 1),
+        ("delay_TTL", config_dict["deblank_us"]),
+        ("pulse_TTL", prog_p90_us, "ph_cyc", ph1_cyc),
+        (
+            "delay",
+            config_dict["tau_us"]
+            - 2 * prog_p90_us / pi
+            - marker_us
+            - config_dict["deblank_us"],
+        ),
+        # NOTE: here the tau_us is defined as
+        # the evolution time from the start of
+        # excitation (*during the pulse*) through
+        # to the start of the 180 pulse
+        ("marker", "echo_label", config_dict["nEchoes"]),
+        ("delay_TTL", config_dict["deblank_us"]),
+        ("pulse_TTL", prog_p180_us, "ph_cyc", ph2_cyc),
+        ("delay", config_dict["deadtime_us"]),
+        ("acquire", config_dict["echo_acq_ms"]),
+        (
+            "delay",
+            config_dict["deadtime_us"]
+            - 2 * marker_us
+            - config_dict["deblank_us"],
+        ),
+        ("jumpto", "echo_label"),
+        # In the line above I assume this takes
+        # marker_us to execute The way to be sure
+        # of this would be to capture on a scope
+        # and measure from one 180 to the next (or
+        # actually several, since this error would
+        # be cumulative
+        ("delay", config_dict["repetition_us"]),
+    ],
+    nScans=config_dict["nScans"],
+    indirect_idx=0,
+    indirect_len=1,
+    adcOffset=config_dict["adc_offset"],
+    carrierFreq_MHz=config_dict["carrierFreq_MHz"],
+    nPoints=nPoints,
+    time_per_segment_ms=config_dict["echo_acq_ms"],
+    SW_kHz=config_dict["SW_kHz"],
+    ret_data=None,
 )
 # }}}
 # {{{ chunk and save data
-if phase_cycling:
-    data.chunk("t", ["ph1", "echo", "t2"], [len(ph1_cyc), config_dict["nEchoes"], -1])
-    data.setaxis("ph1", ph1_cyc / 4)
-    data.setaxis("echo", r_[0 : config_dict["nEchoes"]])
-    if config_dict["nScans"] > 1:
-        data.setaxis("nScans", r_[0 : config_dict["nScans"]])
-    data.squeeze()
-    data.set_units("t2", "s")
-    fl.next("Raw - time")
-    fl.image(
-        data.C.mean("nScans"))
-    data.reorder("t2", first=False)
-    for_plot = data.C
-    for_plot.ft('t2',shift=True)
-    for_plot.ft(['ph1'], unitary = True)
-    fl.next('FTed data')
-    fl.image(for_plot.C.mean("nScans")
-    )
-else:
-    if config_dict["nScans"] > 1:
-        data.setaxis("nScans", r_[0 : config_dict["nScans"]])
-    data.rename("t","t2")
-    fl.next("Raw - time")
-    fl.image(
-        data.C.mean("nScans"))
-    data.reorder("t2", first=False)
-    for_plot = echo_data.C
-    for_plot.ft('t2',shift=True)
-    fl.next('FTed data')
-    fl.image(for_plot)
-data.name(config_dict["type"] + "_" + config_dict["cpmg_counter"])
-data.set_prop("postproc_type", "spincore_CPMGv2")
+data.chunk(
+    "t",
+    ["ph2", "ph_diff", "nEcho", "t2"],
+    [len(ph2), len(ph_diff), config_dict["nEchoes"], -1],
+)
+data.setaxis("nEcho", r_[0 : config_dict["nEchoes"]]).setaxis(
+    "ph2", ph2 / 4
+).setaxis("ph_diff", ph_diff / 4)
+data.set_prop("postproc_type", "spincore_diffph_SE_v2")
+data.set_prop("coherence_pathway", {"ph_overall": -1, "ph1": +1})
 data.set_prop("acq_params", config_dict.asdict())
-target_directory = getDATADIR(exp_type="ODNP_NMR_comp/CPMG")
+nodename = config_dict["type"] + "_" + str(config_dict["cpmg_counter"])
+data.name(nodename)
 filename_out = filename + ".h5"
-nodename = data.name()
 if os.path.exists(f"{filename_out}"):
     print("this file already exists so we will add a node to it!")
     with h5py.File(
         os.path.normpath(os.path.join(target_directory, f"{filename_out}"))
     ) as fp:
-        if nodename in fp.keys():
-            print("this nodename already exists, so I will call it temp_cpmg")
-            data.name("temp_cpmg")
-            nodename = "temp_cpmg"
-    data.hdf5_write(f"{filename_out}", directory=target_directory)
-else:
-    try:
-        data.hdf5_write(f"{filename_out}", directory=target_directory)
-    except:
-        print(
-            f"I had problems writing to the correct file {filename}.h5, so I'm going to try to save your file to temp_cpmg.h5 in the current h5 file"
-        )
-        if os.path.exists("temp_cpmg.h5"):
-            print("there is a temp_cpmg.h5 already! -- I'm removing it")
-            os.remove("temp_cpmg.h5")
-            data.hdf5_write("temp_cpmg.h5")
-            print(
-                "if I got this far, that probably worked -- be sure to move/rename temp_cpmg.h5 to the correct name!!"
+        while nodename in fp.keys():
+            nodename = (
+                config_dict["type"] + "_" + str(config_dict["cpmg_counter"])
             )
+            data.name(nodename)
+            config_dict["cpmg_counter"] += 1
+data.hdf5_write(f"{filename_out}", directory=target_directory)
 print("\n*** FILE SAVED IN TARGET DIRECTORY ***\n")
-print(("Name of saved data", data.name()))
+print(
+    "saved data to (node, file, exp_type):",
+    data.name(),
+    filename_out,
+    my_exp_type,
+)
 config_dict.write()
-fl.show()
+# }}}
