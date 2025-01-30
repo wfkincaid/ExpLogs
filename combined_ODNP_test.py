@@ -39,7 +39,7 @@ vd_kwargs = {
     for j in ["krho_cold", "krho_hot", "T1water_cold", "T1water_hot"]
     if j in parser_dict.keys()
 }
-vd_list_us =linspace(5e1,4e6,12) 
+vd_list_us = np.linspace(5e1,4e6,12) 
 FIR_rep = 4e6#2*(1.0/(parser_dict['concentration']*parser_dict['krho_hot']+1.0/parser_dict['T1water_hot']))*1e6
 parser_dict['FIR_rep'] = FIR_rep
 # }}}
