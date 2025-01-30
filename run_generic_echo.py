@@ -8,20 +8,20 @@ phase cycled in a nested way similar to run_CPMG.py. If you wish to keep
 the field as is without adjustment follow the 'py run_generic_echo.py'
 command with 'stayput' (e.g. 'py run_generic_echo.py stayput')
 """
-from pylab import *
-from pyspecdata import *
-import os, sys
-from numpy import *
+
+import pyspecdata as psd
+import os
+import sys
+import numpy as np
+from numpy import r_, pi
 import SpinCore_pp
-from SpinCore_pp import prog_plen, get_integer_sampling_intervals
+from SpinCore_pp import prog_plen, get_integer_sampling_intervals, save_data
 from SpinCore_pp.ppg import generic
 from datetime import datetime
 from Instruments.XEPR_eth import xepr
-import h5py
 
 my_exp_type = "ODNP_NMR_comp/Echoes"
-target_directory = getDATADIR(exp_type=my_exp_type)
-assert os.path.exists(target_directory)
+assert os.path.exists(psd.getDATADIR(exp_type=my_exp_type))
 # {{{importing acquisition parameters
 config_dict = SpinCore_pp.configuration("active.ini")
 (
@@ -33,12 +33,10 @@ config_dict = SpinCore_pp.configuration("active.ini")
     time_per_segment_ms=config_dict["acq_time_ms"],
 )
 # }}}
-# {{{create filename and save to config file
-date = datetime.now().strftime("%y%m%d")
+# {{{add file saving parameters to config dict
 config_dict["type"] = "echo"
-config_dict["date"] = date
+config_dict["date"] = datetime.now().strftime("%y%m%d")
 config_dict["echo_counter"] += 1
-filename = f"{config_dict['date']}_{config_dict['chemical']}_generic_{config_dict['type']}"
 # }}}
 # {{{ command-line option to leave the field untouched (if you set it once, why set it again)
 adjust_field = True
@@ -46,9 +44,8 @@ if len(sys.argv) == 2 and sys.argv[1] == "stayput":
     adjust_field = False
 # }}}
 input(
-    "I'm assuming that you've tuned your probe to",
-    config_dict["carrierFreq_MHz"],
-    "since that's what's in your .ini file. Hit enter if this is true",
+    "I'm assuming that you've tuned your probe to %f since that's what's in your .ini file. Hit enter if this is true"
+    % config_dict["carrierFreq_MHz"]
 )
 # {{{ let computer set field
 if adjust_field:
@@ -69,15 +66,15 @@ if adjust_field:
 ph2 = r_[0, 1, 2, 3]
 ph_diff = r_[0, 2]
 # the following puts ph_diff on the inside, which I would not have expected
-ph1_cyc = array([(j + k) % 4 for k in ph2 for j in ph_diff])
-ph2_cyc = array([(k + 1) % 4 for k in ph2 for j in ph_diff])
+ph1_cyc = np.array([(j + k) % 4 for k in ph2 for j in ph_diff])
+ph2_cyc = np.array([(k + 1) % 4 for k in ph2 for j in ph_diff])
 nPhaseSteps = len(ph2) * len(ph_diff)
 # }}}
 # {{{ calibrate pulse lengths
 # NOTE: This is done inside the run_spin_echo rather than in the example
 # but to keep the generic function more robust we do it outside of the ppg
-prog_p90_us = prog_plen(config_dict["p90_us"])
-prog_p180_us = prog_plen(2 * config_dict["p90_us"])
+prog_p90_us = prog_plen(config_dict["beta_s_sqrtW"], config_dict)
+prog_p180_us = prog_plen(2 * config_dict["beta_s_sqrtW"], config_dict)
 # }}}
 # Unlike CPMG, here, we are free to choose τ to be
 # whatever we want it to be.  Typically (when not
@@ -118,11 +115,13 @@ data = generic(
     nScans=config_dict["nScans"],
     indirect_idx=0,
     indirect_len=1,
+    amplitude=config_dict["amplitude"],
     adcOffset=config_dict["adc_offset"],
     carrierFreq_MHz=config_dict["carrierFreq_MHz"],
     nPoints=nPoints,
     time_per_segment_ms=config_dict["acq_time_ms"],
     SW_kHz=config_dict["SW_kHz"],
+    amplitude=config_dict["amplitude"],
     ret_data=None,
 )
 # }}}
@@ -136,27 +135,6 @@ data.setaxis("ph2", ph2 / 4).setaxis("ph_diff", ph_diff / 4)
 data.set_prop("postproc_type", "spincore_diffph_SE_v2")
 data.set_prop("coherence_pathway", {"ph_overall": -1, "ph1": +1})
 data.set_prop("acq_params", config_dict.asdict())
-nodename = config_dict["type"] + "_" + str(config_dict["echo_counter"])
-data.name(nodename)
-filename_out = filename + ".h5"
-if os.path.exists(f"{filename_out}"):
-    print("this file already exists so we will add a node to it!")
-    with h5py.File(
-        os.path.normpath(os.path.join(target_directory, f"{filename_out}"))
-    ) as fp:
-        while nodename in fp.keys():
-            nodename = (
-                config_dict["type"] + "_" + str(config_dict["echo_counter"])
-            )
-            data.name(nodename)
-            config_dict["echo_counter"] += 1
-data.hdf5_write(f"{filename_out}", directory=target_directory)
-print("\n*** FILE SAVED IN TARGET DIRECTORY ***\n")
-print(
-    "saved data to (node, file, exp_type):",
-    data.name(),
-    filename_out,
-    my_exp_type,
-)
+config_dict = save_data(data, my_exp_type, config_dict, "echo")
 config_dict.write()
 # }}}

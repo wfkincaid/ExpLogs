@@ -6,22 +6,23 @@ A standard echo where the 90 time is varied so
 that we are able to see when the signal rotates through 90 to 
 180 degrees.
 """
-from pyspecdata import *
+
+import pyspecdata as psd
 import os
 import SpinCore_pp
-from SpinCore_pp import get_integer_sampling_intervals
+from SpinCore_pp import get_integer_sampling_intervals, save_data, prog_plen
 from Instruments.XEPR_eth import xepr
 from SpinCore_pp.ppg import run_spin_echo
 from datetime import datetime
-from numpy import linspace, arange
-import h5py
+import numpy as np
+from numpy import r_
 
 my_exp_type = "ODNP_NMR_comp/nutation"
-target_directory = getDATADIR(exp_type=my_exp_type)
-assert os.path.exists(target_directory)
-p90_range_us = linspace(1.0, 10.0, 20, endpoint=False)
+assert os.path.exists(psd.getDATADIR(exp_type=my_exp_type))
+beta_range_s_sqrtW = np.linspace(0.5e-6, 100e-6, 20)
 # {{{importing acquisition parameters
 config_dict = SpinCore_pp.configuration("active.ini")
+prog_p90_us = prog_plen(beta_range_s_sqrtW, config_dict)
 (
     nPoints,
     config_dict["SW_kHz"],
@@ -30,29 +31,26 @@ config_dict = SpinCore_pp.configuration("active.ini")
     config_dict["SW_kHz"], config_dict["acq_time_ms"]
 )
 # }}}
-# {{{create filename and save to config file
-date = datetime.now().strftime("%y%m%d")
+# {{{add file saving parameters to config dict
 config_dict["type"] = "nutation"
-config_dict["date"] = date
+config_dict["date"] = datetime.now().strftime("%y%m%d")
 config_dict["echo_counter"] += 1
-filename = (
-    f"{config_dict['date']}_{config_dict['chemical']}_{config_dict['type']}"
-)
 # }}}
 # {{{set phase cycling
-ph1_cyc = r_[0, 1, 2, 3]
-nPhaseSteps = 4
+ph1_cyc = r_[0, 2]
+ph2_cyc = r_[0, 2]
+nPhaseSteps = len(ph1_cyc) * len(ph2_cyc)
 # }}}
 # {{{let computer set field
 input(
-    "I'm assuming that you've tuned your probe to:",
-    config_dict["carrierFreq_MHz"],
-    "since that's what's in your .ini file.  Hit enter if this is true",
+    "I'm assuming that you've tuned your probe to %f since that's what's in   "
+    " your .ini file. Hit enter if this is true"
+    % config_dict["carrierFreq_MHz"]
 )
 field_G = config_dict["carrierFreq_MHz"] / config_dict["gamma_eff_MHz_G"]
 print(
-    "Based on that, and the gamma_eff_MHz_G you have in your .ini file, I'm setting the field to %f"
-    % field_G
+    "Based on that, and the gamma_eff_MHz_G you have in your .ini file, I'm   "
+    " setting the field to %f" % field_G
 )
 with xepr() as x:
     assert field_G < 3700, "are you crazy??? field is too high!"
@@ -63,65 +61,47 @@ with xepr() as x:
 # {{{check total points
 total_pts = nPoints * nPhaseSteps
 assert total_pts < 2**14, (
-    "You are trying to acquire %d points (too many points) -- either change SW or acq time so nPoints x nPhaseSteps is less than 16384\nyou could try reducing the acq_time_ms to %f"
+    "You are trying to acquire %d points (too many points) -- either change SW"
+    "    or acq time so nPoints x nPhaseSteps is less than 16384\nyou could"
+    " try    reducing the acq_time_ms to %f"
     % (total_pts, config_dict["acq_time_ms"] * 16384 / total_pts)
 )
 # }}}
-nutation_data = None
-for idx, p90_us in enumerate(p90_range_us):
+data = None
+for idx, beta in enumerate(beta_range_s_sqrtW):
     # Just loop over the 90 times and set the indirect axis at the end
     # just like how we perform and save IR data
-    nutation_data = run_spin_echo(
+    data = run_spin_echo(
         deadtime_us=config_dict["deadtime_us"],
+        deblank_us=config_dict["deblank_us"],
         nScans=config_dict["nScans"],
         indirect_idx=idx,
-        indirect_len=len(p90_range_us),
+        indirect_len=len(prog_p90_us),
         ph1_cyc=ph1_cyc,
+        ph2_cyc=ph2_cyc,
         amplitude=config_dict["amplitude"],
         adcOffset=config_dict["adc_offset"],
         carrierFreq_MHz=config_dict["carrierFreq_MHz"],
         nPoints=nPoints,
         nEchoes=config_dict["nEchoes"],
-        p90_us=p90_us,
+        plen=beta,
         repetition_us=config_dict["repetition_us"],
         tau_us=config_dict["tau_us"],
         SW_kHz=config_dict["SW_kHz"],
-        ret_data=nutation_data,
+        ret_data=data,
     )
-nutation_data.setaxis("indirect", p90_range_us * 1e-6).set_units(
-    "indirect", "s"
-)
+data.rename("indirect", "beta")
+data.setaxis("beta", beta_range_s_sqrtW).set_units("beta", "s√W")
+data.set_prop("prog_p90_us", prog_p90_us)
 # {{{ chunk and save data
-nutation_data.chunk("t", ["ph1", "t2"], [4, -1])
-nutation_data.setaxis("ph1", ph1_cyc / 4)
+data.chunk("t", ["ph2", "ph1", "t2"], [2, 2, -1])
+data.setaxis("ph1", ph1_cyc / 4).setaxis("ph2", ph2_cyc / 4)
 if config_dict["nScans"] > 1:
-    nutation_data.setaxis("nScans", r_[0 : config_dict["nScans"]])
-nutation_data.reorder(["ph1", "nScans", "t2"])
-nutation_data.set_units("t2", "s")
-nutation_data.set_prop("postproc_type", "spincore_nutation_v4")
-nutation_data.set_prop("coherence_pathway", {"ph1": +1})
-nutation_data.set_prop("acq_params", config_dict.asdict())
-nodename = config_dict["type"] + "_" + str(config_dict["echo_counter"])
-nutation_data.name(nodename)
-filename_out = filename + ".h5"
-nodename = nutation_data.name()
-if os.path.exists(f"{filename_out}"):
-    print("this file already exists so we will add a node to it!")
-    with h5py.File(
-        os.path.normpath(os.path.join(target_directory, f"{filename_out}"))
-    ) as fp:
-        while nodename in fp.keys():
-            nodename = (
-                config_dict["type"] + "_" + str(config_dict["echo_counter"])
-            )
-            nutation_data.name(nodename)
-            config_dict["echo_counter"] += 1
-nutation_data.hdf5_write(f"{filename_out}", directory=target_directory)
-print("\n*** FILE SAVED IN TARGET DIRECTORY ***\n")
-print(
-    "saved data to (node, file, exp_type):",
-    nutation_data.name(),
-    filename_out,
-    my_exp_type,
-)
+    data.setaxis("nScans", r_[0 : config_dict["nScans"]])
+data.reorder(["nScans", "ph2", "ph1", "beta", "t2"])
+data.set_units("t2", "s")
+data.set_prop("postproc_type", "spincore_nutation_v6")
+data.set_prop("coherence_pathway", {"ph1": +1, "ph2": -2})
+data.set_prop("acq_params", config_dict.asdict())
+config_dict = save_data(data, my_exp_type, config_dict, "echo")
 config_dict.write()
