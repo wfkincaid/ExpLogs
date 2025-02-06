@@ -13,12 +13,18 @@ Takes one or two command line arguments:
         so the program can use that to determine. 
 2.      If supplied, this overrides the default effective γ value.
 """
-
-from Instruments import GDS_scope, SerialInstrument
-from pyspecdata import ndshape, concat, figlist_var
-import SpinCore_pp
-import numpy as np
+from Instruments import *
+from pyspecdata import *
 import time
+from serial.tools.list_ports import comports
+import serial
+from scipy import signal
+import SpinCore_pp
+from SpinCore_pp import process_args
+import sys
+import threading
+from pyspecdata import *
+import numpy as np
 
 parser_dict = SpinCore_pp.configuration("active.ini")
 carrier_frequency = parser_dict["carrierFreq_MHz"]
@@ -30,10 +36,10 @@ print(
 print("")
 # CH1 of the scope is busted so we are now using CH2 and CH3 instead
 input(
-    "Please note I'm going to assume the control is hooked up to CH2 of the"
-    " GDS and the reflection is hooked up to CH3 of the GDS... (press enter to"
-    " continue)"
+    "Please note I'm going to assume the control is hooked up to CH2 of the GDS and the reflection is hooked up to CH3 of the GDS... (press enter to continue)"
 )
+
+fl = figlist_var()
 
 print("These are the instruments available:")
 SerialInstrument(None)
@@ -61,9 +67,25 @@ def grab_waveforms(g):
     return d
 
 
+def waiting_func():
+    for j in range(3):
+        time.sleep(3)
+        print("counter number %d" % j)
+
+
+def other_func(carrier_frequency):
+    for j in range(3):
+        time.sleep(3)
+        print("second func: counter number %d" % j)
+
+
+def run_tune(carrier_frequency):
+    SpinCore_pp.tune(carrier_frequency)
 
 
 with GDS_scope() as g:
+    tune_thread = threading.Thread(target=run_tune, args=(carrier_frequency,))
+    tune_thread.start()
     g.reset()
     g.CH2.disp = True
     g.CH3.disp = True
@@ -79,10 +101,8 @@ with GDS_scope() as g:
     g.write(":TRIG:SOUR CH2")
     g.write(":TRIG:MOD NORMAL")
     g.write(":TRIG:HLEV 7.5E-2")
-    SpinCore_pp.tune(carrier_frequency)
+    tune_thread.join()
     d = grab_waveforms(g)
-    SpinCore_pp.stopBoard()
-    print("I just stopped the SpinCore")
     d_orig = d.C
     d.ft("t", shift=True)
     d["t" : (carrier_frequency * 2.3e6, None)] = 0
@@ -92,12 +112,11 @@ with GDS_scope() as g:
     flat_slice = d[
         "t":(3.7e-6, 6.5e-6)
     ]  # will always be the same since the scope settings are the same
-
 with figlist_var() as fl:
+    # d['ch',1] *= sqrt(2) # I'm only observing 1/2 of the power of the reflection (so 1/sqrt(2) of the voltage)
     d[
         "ch", 1
-    ] *= 2  # just empirically, I need to scale up the reflection by a
-    #         factor of 2 in order to get it to be the right size
+    ] *= 2  # just empirically, I need to scale up the reflection by a factor of 2 in order to get it to be the right size
     try_again = False
     while try_again:
         data_name = "capture1"
