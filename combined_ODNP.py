@@ -15,13 +15,11 @@ This needs to be run in sync with the power control server. To do so:
     progressive power saturation dataset, and a log of the power over time
     saved as nodes in an h5 file.
 """
-
 from numpy import r_, zeros_like
 from pyspecdata.file_saving.hdf_save_dict_to_group import (
     hdf_save_dict_to_group,
 )
 import pyspecdata as psd
-from pyspecdata import strm
 import os
 import time
 import h5py
@@ -105,10 +103,10 @@ T1_powers_dB = gen_powerlist(
     three_down=False,
 )
 T1_node_names = ["FIR_%ddBm" % j for j in T1_powers_dB]
-print("dB_settings", dB_settings)
-print("correspond to powers in Watts", 10 ** (dB_settings / 10.0 - 3))
-print("T1_powers_dB", T1_powers_dB)
-print("correspond to powers in Watts", 10 ** (T1_powers_dB / 10.0 - 3))
+logger.info("dB_settings", dB_settings)
+logger.info("correspond to powers in Watts", 10 ** (dB_settings / 10.0 - 3))
+logger.info("T1_powers_dB", T1_powers_dB)
+logger.info("correspond to powers in Watts", 10 ** (T1_powers_dB / 10.0 - 3))
 myinput = input("Look ok?")
 if myinput.lower().startswith("n"):
     raise ValueError("you said no!!!")
@@ -277,9 +275,13 @@ input(
     "   we can continue!"
 )
 with power_control() as p:
-    # we do not dip lock or anything here, because we assume
-    # uw_dip_center_GHz stores the frequency of the center of the cavity
-    # resonance, which was set from the microwave tuning gui
+    # JF points out it should be possible to save time by removing this (b/c we
+    # shut off microwave right away), but AG notes that doing so causes an
+    # error.  Therefore, debug the root cause of the error and remove it!
+    retval_thermal = p.dip_lock(
+        config_dict["uw_dip_center_GHz"] - config_dict["uw_dip_width_GHz"] / 2,
+        config_dict["uw_dip_center_GHz"] + config_dict["uw_dip_width_GHz"] / 2,
+    )
     p.mw_off()
     time.sleep(16.0)  # give some time for the power source to "settle"
     p.start_log()
@@ -326,14 +328,12 @@ with power_control() as p:
             "W)",
         )
         if j == 0:
-            # Again, no dip lock because we assume the microwave tuning
-            # GUI handled finding the cavity frequency.
-            #
-            # This is not only faster, but it ensures that the
-            # uw_dip_center_GHz stores the ACTUAL B12 frequency that we
-            # use
-            p.set_power(0)  # set to 0 dBm
-            p.set_freq(config_dict["uw_dip_center_GHz"] * 1e9)
+            retval = p.dip_lock(
+                config_dict["uw_dip_center_GHz"]
+                - config_dict["uw_dip_width_GHz"] / 2,
+                config_dict["uw_dip_center_GHz"]
+                + config_dict["uw_dip_width_GHz"] / 2,
+            )
         p.set_power(this_dB)
         for k in range(10):
             time.sleep(0.5)
