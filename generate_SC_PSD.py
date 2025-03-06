@@ -1,3 +1,7 @@
+"""
+PSD from SpinCore
+=================
+"""
 from numpy import r_
 import pyspecdata as psd
 from pyspecProcScripts import lookup_table
