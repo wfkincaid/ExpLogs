@@ -19,7 +19,6 @@ import time
 my_exp_type = "ODNP_NMR_comp/noise_tests"
 nScans = 100
 
-
 # {{{ Function for data acquisition
 def collect(config_dict):
     """
