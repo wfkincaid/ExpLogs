@@ -104,7 +104,6 @@ T1_powers_dB = gen_powerlist(
     three_down=False,
 )
 T1_node_names = ["FIR_%ddBm" % j for j in T1_powers_dB]
-print("dB_settings", dB_settings)
 single_T1_minutes = (
     len(IR_ph1_cyc)
     * len(IR_ph2_cyc)
@@ -128,7 +127,12 @@ print(
     "min worth of stuff: ",
     single_T1_minutes,
     "min of that is a T1",
+    "and after turning on the B12, but before turning on the power, I'm going"
+    " to run",
+    thermal_echo_minutes,
+    "min of echos",
 )
+print("dB_settings", dB_settings)
 enhancement_minutes = (
     len(dB_settings)
     * len(Ep_ph1_cyc)
@@ -153,7 +157,11 @@ print(
     "for a total of",
     T1_minutes,
     "minutes, and a grand total of ",
-    T1_minutes + enhancement_minutes,
+    # the last two terms below are the thermal stuff
+    T1_minutes
+    + enhancement_minutes
+    + 2 * thermal_echo_minutes
+    + single_T1_minutes,
 )
 myinput = input("Look ok?")
 if myinput.lower().startswith("n"):
