@@ -19,6 +19,9 @@ import time
 my_exp_type = "ODNP_NMR_comp/noise_tests"
 nScans = 100
 
+sc.adc_offset()
+
+
 # {{{ Function for data acquisition
 def collect(config_dict):
     """
@@ -80,7 +83,6 @@ def collect(config_dict):
             1,  # assume nEchoes = 1
             1,  # assume nPhaseSteps = 1
         )
-        print(nPoints,"points at",SW_kHz,"for",acq_time_ms,"ms")
         sc.init_ppg()
         # }}}
         # {{{ ppg to generate the SpinCore data
